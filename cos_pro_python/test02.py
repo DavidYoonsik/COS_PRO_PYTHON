@@ -6,16 +6,55 @@
     총 할인 금액 VS. 지불금액
 '''
 
+from pprint import pprint
+
 def solution(user_price_data):
+    import json
+
     tot_dsc_price = 0
 
     "UserName, UserGrade, Price"
+    answer = []
 
-    if user_price_data['UserGrade'] == "S":
-        tot_dsc_price = user_price_data['Price'] * 0.05
-    elif user_price_data['UserGrade'] == "G":
-        tot_dsc_price = user_price_data['Price'] * 0.1
-    elif user_price_data['UserGrade'] == "V":
-        tot_dsc_price = user_price_data['Price'] * 0.15
+    for i in user_price_data:
 
-    return user_price_data['UserName'], tot_dsc_price
+        if i['UserGrade'] == "S":
+            tot_dsc_price = i['Price'] * 0.05
+        elif i['UserGrade'] == "G":
+            tot_dsc_price = i['Price'] * 0.1
+        elif i['UserGrade'] == "V":
+            tot_dsc_price = i['Price'] * 0.15
+
+        answer.append(
+            {
+                'UserName': i['UserName'],
+                'Price': tot_dsc_price
+            }
+        )
+
+    return json.dumps(answer)
+
+data = [
+    {
+        'UserName' : 'David',
+        'UserGrade' : 'S',
+        'Price' : 100000
+    },
+    {
+        'UserName' : 'GoLuck',
+        'UserGrade' : 'G',
+        'Price' : 150000
+    },
+    {
+        'UserName' : 'Spark',
+        'UserGrade' : 'V',
+        'Price' : 130000
+    },
+    {
+        'UserName' : 'Yarn',
+        'UserGrade' : 'V',
+        'Price' : 500000
+    }
+]
+
+pprint(solution(data))
